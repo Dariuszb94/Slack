@@ -34,7 +34,6 @@ export default App;
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: orange;
   display: grid;
   grid-template-rows: 38px auto;
 `;
