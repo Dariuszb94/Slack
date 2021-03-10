@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Chat from "./components/Chat";
 import Login from "./components/Login";
 import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
 
 import styled from "styled-components";
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Container>
           <Header />
           <Main>
+            <Sidebar />
             <Switch>
               <Route path="/room">
                 <Chat />
@@ -38,4 +40,6 @@ const Container = styled.div`
 `;
 const Main = styled.div`
   background-color: blue;
+  display: grid;
+  grid-template-columns: 260px auto;
 `;
