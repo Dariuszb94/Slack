@@ -32,13 +32,17 @@ const Container = styled.div`
   color: white;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 const Main = styled.div`
   display: flex;
+  margin-right: 16px;
+  margin-left: 16px;
 `;
 const SearchContainer = styled.div`
   min-width: 400px;
+  margin-left: 16px;
+  margin-right: 16px;
 `;
 const Search = styled.div`
   box-shadow: inset 0 0 0 1px rgb(104 74 104);
@@ -68,4 +72,12 @@ const UserContainer = styled.div`
 const Name = styled.div`
   padding-right: 16px;
 `;
-const UserImage = styled.div``;
+const UserImage = styled.div`
+  width: 28px;
+  height: 28px;
+  border: 2px solid white;
+  border-radius: 3px;
+  img {
+    width: 100%;
+  }
+`;
