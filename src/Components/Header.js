@@ -44,6 +44,8 @@ const Search = styled.div`
   box-shadow: inset 0 0 0 1px rgb(104 74 104);
   border-radius: 6px;
   width: 100%;
+  display: flex;
+  align-items: center;
   input {
     width: 100%;
     background-color: transparent;
@@ -61,6 +63,9 @@ const Search = styled.div`
 const UserContainer = styled.div`
   display: flex;
   align-items: center;
+  padding-right: 16px;
 `;
-const Name = styled.div``;
+const Name = styled.div`
+  padding-right: 16px;
+`;
 const UserImage = styled.div``;
