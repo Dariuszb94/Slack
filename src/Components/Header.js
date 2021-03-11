@@ -33,6 +33,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
 const Main = styled.div`
   display: flex;
@@ -68,6 +69,8 @@ const UserContainer = styled.div`
   display: flex;
   align-items: center;
   padding-right: 16px;
+  position: absolute;
+  right: 0;
 `;
 const Name = styled.div`
   padding-right: 16px;
