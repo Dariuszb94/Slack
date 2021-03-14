@@ -18,7 +18,6 @@ function Sidebar() {
             {item.icon}
             {item.text}
             <AddCircleOutlineIcon />
-            Add
           </MainChannelItem>
         ))}
       </MainChannels>
@@ -54,7 +53,9 @@ const NewMessage = styled.div`
   margin-right: 20px;
   cursor: pointer;
 `;
-const MainChannels = styled.div``;
+const MainChannels = styled.div`
+  padding-top: 20px;
+`;
 const MainChannelItem = styled.div`
   color: rgb(188, 171, 188);
   display: grid;
