@@ -19,15 +19,14 @@ function Sidebar() {
           <MainChannelItem>
             {item.icon}
             {item.text}
-            <AddCircleOutlineIcon />
           </MainChannelItem>
         ))}
       </MainChannels>
       <ChannelsContainer>
         <NewChannelContainer>
           <div>Channels</div>
+          <AddIcon />
         </NewChannelContainer>
-        <AddIcon />
       </ChannelsContainer>
     </Container>
   );
@@ -79,4 +78,9 @@ const ChannelsContainer = styled.div`
 `;
 const NewChannelContainer = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 28px;
+  padding-left: 19px;
+  padding-right: 12px;
 `;
