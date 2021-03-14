@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import { sidebarItemsData } from "../data/SidebarData";
+import { Icon } from "@material-ui/core";
 function Sidebar() {
   return (
     <Container>
@@ -10,6 +12,16 @@ function Sidebar() {
           <AddCircleOutlineIcon />
         </NewMessage>
       </WorkspaceContainer>
+      <MainChannels>
+        {sidebarItemsData.map((item) => (
+          <MainChannelItem>
+            {item.icon}
+            {item.text}
+            <AddCircleOutlineIcon />
+            Add
+          </MainChannelItem>
+        ))}
+      </MainChannels>
     </Container>
   );
 }
@@ -40,5 +52,15 @@ const NewMessage = styled.div`
   align-items: center;
   border-radius: 50%;
   margin-right: 20px;
+  cursor: pointer;
+`;
+const MainChannels = styled.div``;
+const MainChannelItem = styled.div`
+  color: rgb(188, 171, 188);
+  display: grid;
+  grid-template-columns: 15% auto;
+  height: 28px;
+  align-items: center;
+  padding-left: 19px;
   cursor: pointer;
 `;
