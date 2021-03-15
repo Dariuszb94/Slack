@@ -28,7 +28,8 @@ function Sidebar() {
           <AddIcon />
         </NewChannelContainer>
         <ChannelsList>
-          <Channel></Channel>
+          <Channel>Channel1</Channel>
+          <Channel>Channel1</Channel>
         </ChannelsList>
       </ChannelsContainer>
     </Container>
@@ -88,4 +89,13 @@ const NewChannelContainer = styled.div`
   padding-right: 12px;
 `;
 const ChannelsList = styled.div``;
-const Channel = styled.div``;
+const Channel = styled.div`
+  height: 28px;
+  display: flex;
+  align-items: center;
+  padding-left: 19px;
+  cursor: pointer;
+  :hover {
+    background-color: #350d36;
+  }
+`;
