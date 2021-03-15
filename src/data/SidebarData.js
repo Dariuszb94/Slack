@@ -31,3 +31,12 @@ export const sidebarItemsData = [
     text: "More",
   },
 ];
+
+export const channelsData = [
+  {
+    name: "Channel1",
+  },
+  {
+    name: "Channel1",
+  },
+];

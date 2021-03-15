@@ -4,7 +4,8 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import AddIcon from "@material-ui/icons/Add";
 
 import { sidebarItemsData } from "../data/SidebarData";
-import { Icon } from "@material-ui/core";
+import { channelsData } from "../data/SidebarData";
+
 function Sidebar() {
   return (
     <Container>
@@ -28,8 +29,9 @@ function Sidebar() {
           <AddIcon />
         </NewChannelContainer>
         <ChannelsList>
-          <Channel>Channel1</Channel>
-          <Channel>Channel1</Channel>
+          {channelsData.map((channel) => (
+            <Channel>{channel.name}</Channel>
+          ))}
         </ChannelsList>
       </ChannelsContainer>
     </Container>
@@ -75,6 +77,9 @@ const MainChannelItem = styled.div`
   align-items: center;
   padding-left: 19px;
   cursor: pointer;
+  :hover {
+    background-color: #350d36;
+  }
 `;
 const ChannelsContainer = styled.div`
   color: rgb(188, 171, 188);
