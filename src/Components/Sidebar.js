@@ -27,6 +27,9 @@ function Sidebar() {
           <div>Channels</div>
           <AddIcon />
         </NewChannelContainer>
+        <ChannelsList>
+          <Channel></Channel>
+        </ChannelsList>
       </ChannelsContainer>
     </Container>
   );
@@ -84,3 +87,5 @@ const NewChannelContainer = styled.div`
   padding-left: 19px;
   padding-right: 12px;
 `;
+const ChannelsList = styled.div``;
+const Channel = styled.div``;
