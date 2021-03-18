@@ -6,13 +6,30 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 
 import styled from "styled-components";
+import firebase from "./firebase";
 function App() {
+  const getChannels = () => {
+    //console.log(firebase);
+    firebase
+      .collection("rooms")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  };
   return (
     <div className="App">
       <Router>
         <Container>
           <Header />
           <Main>
+            <button onClick={() => getChannels()} />
             <Sidebar />
             <Switch>
               <Route path="/room">
