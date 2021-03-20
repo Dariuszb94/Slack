@@ -1,4 +1,5 @@
 import "./App.css";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Chat from "./components/Chat";
 import Login from "./components/Login";
@@ -6,30 +7,28 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 
 import styled from "styled-components";
-import firebase from "./firebase";
+import db from "./firebase";
 function App() {
+  const [rooms, setRooms] = useState([]);
   const getChannels = () => {
-    //console.log(firebase);
-    firebase
-      .collection("rooms")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
-        });
-      })
-      .catch((error) => {
-        console.log("Error getting documents: ", error);
-      });
+    db.collection("rooms").onSnapshot((snapshot) => {
+      setRooms(
+        snapshot.docs.map((doc) => {
+          return { id: doc.id, name: doc.data().name };
+        })
+      );
+    });
   };
+  useEffect(() => {
+    getChannels();
+  }, []);
+  console.log(rooms);
   return (
     <div className="App">
       <Router>
         <Container>
           <Header />
           <Main>
-            <button onClick={() => getChannels()} />
             <Sidebar />
             <Switch>
               <Route path="/room">
