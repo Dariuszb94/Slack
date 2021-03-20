@@ -6,7 +6,8 @@ import AddIcon from "@material-ui/icons/Add";
 import { sidebarItemsData } from "../data/SidebarData";
 import { channelsData } from "../data/SidebarData";
 
-function Sidebar() {
+function Sidebar(props) {
+  console.log(props);
   return (
     <Container>
       <WorkspaceContainer>
@@ -29,8 +30,8 @@ function Sidebar() {
           <AddIcon />
         </NewChannelContainer>
         <ChannelsList>
-          {channelsData.map((channel) => (
-            <Channel>{channel.name}</Channel>
+          {props.rooms.map((item) => (
+            <Channel>#{item.name}</Channel>
           ))}
         </ChannelsList>
       </ChannelsContainer>

@@ -29,7 +29,7 @@ function App() {
         <Container>
           <Header />
           <Main>
-            <Sidebar />
+            <Sidebar rooms={rooms} />
             <Switch>
               <Route path="/room">
                 <Chat />
