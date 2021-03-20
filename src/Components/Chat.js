@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import ChatInput from "./ChatInput";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 function Chat() {
   return (
@@ -12,11 +13,11 @@ function Chat() {
         </Channel>
         <ChannelDetails>
           <div>Details</div>
-          <InfoOutlinedIcon></InfoOutlinedIcon>
+          <Info />
         </ChannelDetails>
       </Header>
       <MessageContainer></MessageContainer>
-      <ChatInput></ChatInput>
+      <ChatInput />
     </Container>
   );
 }
@@ -38,6 +39,7 @@ const Channel = styled.div``;
 const ChannelDetails = styled.div`
   display: flex;
   align-items: center;
+  color: #606060;
 `;
 const ChannelName = styled.div`
   font-weight: 700;
@@ -50,4 +52,6 @@ const ChannelInfo = styled.div`
 `;
 
 const MessageContainer = styled.div``;
-const ChatInput = styled.div``;
+const Info = styled(InfoOutlinedIcon)`
+  margin-left: 10px;
+`;
