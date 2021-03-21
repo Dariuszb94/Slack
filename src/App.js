@@ -10,6 +10,8 @@ import styled from "styled-components";
 import db from "./firebase";
 function App() {
   const [rooms, setRooms] = useState([]);
+  const [user, setUser] = useState();
+
   const getChannels = () => {
     db.collection("rooms").onSnapshot((snapshot) => {
       setRooms(
@@ -22,24 +24,25 @@ function App() {
   useEffect(() => {
     getChannels();
   }, []);
-  console.log(rooms);
   return (
     <div className="App">
       <Router>
-        <Container>
-          <Header />
-          <Main>
-            <Sidebar rooms={rooms} />
-            <Switch>
-              <Route path="/room">
-                <Chat />
-              </Route>
-              <Route path="/">
-                <Login />
-              </Route>
-            </Switch>
-          </Main>
-        </Container>
+        {!user ? (
+          <Login />
+        ) : (
+          <Container>
+            <Header />
+            <Main>
+              <Sidebar rooms={rooms} />
+              <Switch>
+                <Route path="/room">
+                  <Chat />
+                </Route>
+                <Route path="/"></Route>
+              </Switch>
+            </Main>
+          </Container>
+        )}
       </Router>
     </div>
   );
