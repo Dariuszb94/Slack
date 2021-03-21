@@ -3,6 +3,7 @@ import styled from "styled-components";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import ChatInput from "./ChatInput";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+import ChatMessage from "./ChatMessage";
 function Chat() {
   return (
     <Container>
@@ -16,7 +17,9 @@ function Chat() {
           <Info />
         </ChannelDetails>
       </Header>
-      <MessageContainer></MessageContainer>
+      <MessageContainer>
+        <ChatMessage></ChatMessage>
+      </MessageContainer>
       <ChatInput />
     </Container>
   );
