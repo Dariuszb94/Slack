@@ -8,7 +8,7 @@ function ChatInput() {
         <form>
           <input type="text" placeholder="Message here..." />
           <SendButton>
-            <SendIcon />
+            <Send />
           </SendButton>
         </form>
       </InputContainer>
@@ -43,4 +43,20 @@ const InputContainer = styled.div`
 const SendButton = styled.div`
   background-color: #007a5a;
   border-radius: 2px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+  cursor: pointer;
+  svg {
+    width: 18px;
+  }
+  :hover {
+    background-color: #148567;
+  }
+`;
+const Send = styled(SendIcon)`
+  color: #d9d9d9;
 `;
