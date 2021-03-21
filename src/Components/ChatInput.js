@@ -31,4 +31,7 @@ form{
   }
 }
 `;
-const SendButton = styled.div``;
+const SendButton = styled.div`
+background-color:#007a5a;
+border-radius:2px;
+`;
