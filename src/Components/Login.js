@@ -2,13 +2,32 @@ import React from "react";
 import styled from "styled-components";
 import { auth, provider } from "../firebase";
 function Login() {
-  const signIn = () => {};
+  const signIn = () => {
+    auth
+      .signInWithPopup(provider)
+      .then((result) => {
+        const newUser = {
+          name: result.user.displayName,
+          photo: result.user.photoURL,
+        };
+        console.log(newUser);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
   return (
     <Container>
       <Content>
         <SlackImg src="https://img.icons8.com/ios/452/communication.png" />
         <h1>Sign in Slack</h1>
-        <SignInButton>Sign In With Google</SignInButton>
+        <SignInButton
+          onClick={() => {
+            signIn();
+          }}
+        >
+          Sign In With Google
+        </SignInButton>
       </Content>
     </Container>
   );
