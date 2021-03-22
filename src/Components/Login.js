@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-
+import { auth, provider } from "../firebase";
 function Login() {
+  const signIn = () => {};
   return (
     <Container>
       <Content>
@@ -35,5 +36,15 @@ const Content = styled.div`
 `;
 const SlackImg = styled.img`
   height: 100px;
+  margin-bottom: 25px;
 `;
-const SignInButton = styled.button``;
+const SignInButton = styled.button`
+  margin-top: 25px;
+  background-color: #0a8d48;
+  color: white;
+  border: none;
+  height: 40px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px;
+`;
