@@ -23,6 +23,9 @@ const Container = styled.div`
 `;
 const Content = styled.div`
   background-color: white;
+  padding: 100px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgb(0 0 0 /12%), 0 1px 2px rgb(0 0 0 / 24%);
 `;
 const SlackImg = styled.img`
   height: 100px;
