@@ -8,10 +8,16 @@ import Sidebar from "./components/Sidebar";
 
 import styled from "styled-components";
 import db from "./firebase";
+import { auth, provider } from "./firebase";
 function App() {
   const [rooms, setRooms] = useState([]);
-  const [user, setUser] = useState();
-
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const signOut = () => {
+    auth.signOut().then(() => {
+      localStorage.removeItem("user");
+      setUser(null);
+    });
+  };
   const getChannels = () => {
     db.collection("rooms").onSnapshot((snapshot) => {
       setRooms(
@@ -28,17 +34,17 @@ function App() {
     <div className="App">
       <Router>
         {!user ? (
-          <Login />
+          <Login setUser={setUser} />
         ) : (
           <Container>
-            <Header />
+            <Header signOut={signOut} user={user} />
             <Main>
               <Sidebar rooms={rooms} />
               <Switch>
                 <Route path="/room">
                   <Chat />
                 </Route>
-                <Route path="/"></Route>
+                {/* <Route path="/"></Route> */}
               </Switch>
             </Main>
           </Container>
