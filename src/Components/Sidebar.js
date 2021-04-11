@@ -4,7 +4,6 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import AddIcon from "@material-ui/icons/Add";
 import db from "../firebase";
 import { sidebarItemsData } from "../data/SidebarData";
-import { channelsData } from "../data/SidebarData";
 import { useHistory } from "react-router-dom";
 function Sidebar(props) {
   const history = useHistory();

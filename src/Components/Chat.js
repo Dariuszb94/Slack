@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import ChatInput from "./ChatInput";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
 import ChatMessage from "./ChatMessage";
 import db from "../firebase";
 import { useParams } from "react-router";
-function Chat() {
+function Chat({ user }) {
   let { channelId } = useParams();
   const [channel, setChannel] = useState();
   const [messages, setMessages] = useState([]);
@@ -20,6 +19,15 @@ function Chat() {
         console.log(messages);
         setMessages(messages);
       });
+  };
+  const sendMessage = (text) => {
+    if (channelId) {
+      let payload = {
+        text: text,
+        user: user.name,
+        userImage: user.photo,
+      };
+    }
   };
   const getChannel = () => {
     db.collection("rooms")

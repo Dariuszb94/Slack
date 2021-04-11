@@ -4,12 +4,6 @@ import styled from "styled-components";
 function ChatMessage({ text, name, image, timestamp }) {
   return (
     <Container>
-      {console.log(text)}
-      {console.log(name)}
-
-      {console.log(image)}
-      {console.log(timestamp)}
-
       <UserAvatar>
         <img src={image} />
       </UserAvatar>
