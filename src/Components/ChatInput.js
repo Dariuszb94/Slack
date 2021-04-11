@@ -5,6 +5,7 @@ function ChatInput({ sendMessage }) {
   const [input, setInput] = useState("");
   const send = (e) => {
     e.preventDefault();
+    if (!input) return;
     sendMessage(input);
   };
   return (
@@ -16,7 +17,7 @@ function ChatInput({ sendMessage }) {
             type="text"
             placeholder="Message here..."
           />
-          <SendButton onClick={send}>
+          <SendButton type="submit" onClick={send}>
             <Send />
           </SendButton>
         </form>

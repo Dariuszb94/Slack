@@ -5,7 +5,7 @@ import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
 import db from "../firebase";
 import { useParams } from "react-router";
-import firebase from "../firebase";
+import firebase from "firebase";
 function Chat({ user }) {
   let { channelId } = useParams();
   const [channel, setChannel] = useState();
@@ -17,7 +17,6 @@ function Chat({ user }) {
       .orderBy("timestamp", "asc")
       .onSnapshot((snapshot) => {
         let messages = snapshot.docs.map((doc) => doc.data());
-        console.log(messages);
         setMessages(messages);
       });
   };
