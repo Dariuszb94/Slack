@@ -73,6 +73,7 @@ export default Chat;
 const Container = styled.div`
   display: grid;
   grid-template-rows: 64px auto min-content;
+  min-height: 0;
 `;
 const Header = styled.div`
   padding-left: 20px;
@@ -98,7 +99,11 @@ const ChannelInfo = styled.div`
   margin-top: 8px;
 `;
 
-const MessageContainer = styled.div``;
+const MessageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+`;
 const Info = styled(InfoOutlinedIcon)`
   margin-left: 10px;
 `;
