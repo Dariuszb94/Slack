@@ -7,6 +7,7 @@ function ChatInput({ sendMessage }) {
     e.preventDefault();
     if (!input) return;
     sendMessage(input);
+    setInput("");
   };
   return (
     <Container>
@@ -15,6 +16,7 @@ function ChatInput({ sendMessage }) {
           <input
             onChange={(e) => setInput(e.target.value)}
             type="text"
+            value={input}
             placeholder="Message here..."
           />
           <SendButton type="submit" onClick={send}>
