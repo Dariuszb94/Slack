@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { auth, provider } from "../firebase";
 import { keyframes } from "styled-components";
+import Typewriter from "typewriter-effect";
 function Login(props) {
   const signIn = () => {
     auth
@@ -22,7 +23,28 @@ function Login(props) {
     <Container>
       <Content>
         <SlackImg src="https://img.icons8.com/ios/452/communication.png" />
-        <h1>Chatter</h1>
+        <Title>
+          <Typewriter
+            onInit={(typewriter) => {
+              typewriter.typeString("Chatter").start();
+            }}
+          />
+        </Title>
+        <Subtitle>
+          <Typewriter
+            options={{
+              delay: 40,
+            }}
+            onInit={(typewriter) => {
+              typewriter
+                .pauseFor(1500)
+                .typeString("Just chat")
+                .pauseFor(500)
+                .typeString(" :)")
+                .start();
+            }}
+          />
+        </Subtitle>
         <SignInButton
           onClick={() => {
             signIn();
@@ -44,6 +66,11 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const Title = styled.h1``;
+const Subtitle = styled.h2`
+  font-size: 20px;
+`;
+
 const Content = styled.div`
   background-color: white;
   padding: 100px;
@@ -59,9 +86,24 @@ const Content = styled.div`
     padding: 40px;
   }
 `;
+const baloon = keyframes`
+  0% {
+    transform: translateY(-100px) scale(0.1);
+  }
+80%{
+  transform:scale(1.3);
+  transform: translateY(20px) scale(1.3);
+}
+  100% {
+    transform: translateY(0) scale(1);
+
+  }
+`;
+
 const SlackImg = styled.img`
   height: 100px;
   margin-bottom: 25px;
+  animation: ${baloon} 1s ease-in-out;
 `;
 const emerge = keyframes`
   0% {
