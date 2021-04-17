@@ -4,6 +4,7 @@ import AddIcon from "@material-ui/icons/Add";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import db from "../firebase";
 import { useHistory } from "react-router-dom";
+
 function Sidebar(props) {
   const [expanded, setExpanded] = useState(true);
   const history = useHistory();
@@ -22,23 +23,25 @@ function Sidebar(props) {
   };
   const expand = () => {
     setExpanded((prevExpanded) => !prevExpanded);
+    console.log(expanded);
   };
   return (
     <Container>
       <WorkspaceContainer>
-        <Name>Chatter</Name>
+        <Name> Chatter </Name>
       </WorkspaceContainer>
       <ChannelsContainer>
         <NewChannelContainer>
-          <ChannelExpand>
-            <div>Channels</div>
-            <ExpandLessIconStyled onClick={expand} />
+          <ChannelExpand onClick={expand}>
+            <div> Channels </div>
+            <ExpandLessIconStyled expanded={expanded} />
           </ChannelExpand>
           <AddIconStyled onClick={addChannel} />
         </NewChannelContainer>
-        <ChannelsList>
+        <ChannelsList expanded={expanded}>
           {props.rooms.map((item) => (
             <Channel
+              expanded={expanded}
               onClick={() => {
                 goToChannel(item.id);
               }}
@@ -59,12 +62,19 @@ const Container = styled.div`
 `;
 const ChannelExpand = styled.div`
   display: flex;
+  cursor: pointer;
 `;
 const AddIconStyled = styled(AddIcon)`
   cursor: pointer;
 `;
 const ExpandLessIconStyled = styled(ExpandLessIcon)`
   cursor: pointer;
+  transform: ${(props) => (props.expanded ? "rotate(0)" : "rotate(180deg)")};
+  -webkit-transition: transform 0.5s ease-in-out;
+  -moz-transition: transform 0.5s ease-in-out;
+  -ms-transition: transform 0.5s ease-in-out;
+  -o-transition: transform 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out;
 `;
 
 const WorkspaceContainer = styled.div`
@@ -93,40 +103,48 @@ const NewChannelContainer = styled.div`
   padding-right: 12px;
 `;
 const ChannelsList = styled.div`
-  background-color: ${(props) =>
-    props.expanded ? "white" : console.log(props)};
+  max-height: ${(props) => (props.expanded ? "1000px" : 0)};
+  overflow: hidden;
+  -webkit-transition: max-height 0.5s ease-in-out;
+  -moz-transition: max-height 0.5s ease-in-out;
+  -ms-transition: max-height 0.5s ease-in-out;
+  -o-transition: max-height 0.5s ease-in-out;
+  transition: max-height 0.5s ease-in-out;
 `;
-
-const slideLeft = keyframes`
-  0% {
+const slideLeft = (y) => keyframes`
+   0% {
     transform: translateX(40px);
   }
   100% {
     transform: translateX(0);
   }
 `;
-const slideRight = keyframes`
-  0% {
+const slideRight = (y) => keyframes`
+   0% {
     transform: translateX(-40px);
   }
   100% {
     transform: translateX(0);
   }
 `;
+
 const Channel = styled.div`
   height: 28px;
   display: flex;
   align-items: center;
   padding-left: 19px;
   cursor: pointer;
+
   :hover {
     background-color: #350d36;
     font-weight: bold;
   }
   :nth-child(odd) {
-    animation: ${slideLeft} 1s linear;
+    animation: ${(props) => (props.expanded ? slideLeft(props.y) : null)} 1s
+      linear;
   }
   :nth-child(even) {
-    animation: ${slideRight} 1s linear;
+    animation: ${(props) => (props.expanded ? slideRight(props.y) : null)} 1s
+      linear;
   }
 `;
