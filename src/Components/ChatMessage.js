@@ -5,7 +5,7 @@ function ChatMessage({ text, name, image, timestamp }) {
   return (
     <Container>
       <UserAvatar>
-        <img src={image} />
+        <img src={image} alt="avatar" />
       </UserAvatar>
       <MessageContent>
         <Name>

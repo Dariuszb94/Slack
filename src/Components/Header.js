@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 
 function Header({ user, signOut }) {
+  const [show, setShow] = useState(false);
+  const node = useRef();
+  const showSignOut = () => {
+    setShow((prev) => !prev);
+  };
+  useEffect(() => {
+    // add when mounted
+    document.addEventListener("mousedown", handleClick);
+    // return function to be called when unmounted
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
+  const handleClick = (e) => {
+    if (node.current.contains(e.target)) {
+      return;
+    }
+    // outside click
+    setShow(false);
+  };
   return (
     <Container>
       <Main>
@@ -15,13 +35,16 @@ function Header({ user, signOut }) {
         </SearchContainer>
         <HelpOutlineIcon />
       </Main>
-      <UserContainer>
+      <UserContainer ref={node} onClick={showSignOut}>
         <Name>{user.name}</Name>
-        <UserImage onClick={signOut}>
+        <UserImage>
           <img
             src={user.photo ? user.photo : "https://i.imgur.com/6VBx3io.png"}
             alt={user.name}
           />
+          <Logout show={show} onClick={signOut}>
+            Log Out
+          </Logout>
         </UserImage>
       </UserContainer>
     </Container>
@@ -39,6 +62,20 @@ const Container = styled.div`
   position: relative;
   z-index: 10;
   box-shadow: 0 1px 0 0 rgb(255 255 255 / 10%);
+`;
+
+const Logout = styled.div`
+  position: absolute;
+  bottom: -40px;
+  right: 0;
+  background-color: #3f0e40;
+  width: 80px;
+  text-align: center;
+  padding: 4px;
+  border-radius: 4px;
+  border: 2px solid white;
+  display: ${(props) => (props.show ? "block" : "none")};
+  cursor: pointer;
 `;
 const Main = styled.div`
   display: flex;
@@ -76,6 +113,7 @@ const UserContainer = styled.div`
   padding-right: 16px;
   position: absolute;
   right: 0;
+  cursor: pointer;
 `;
 const Name = styled.div`
   padding-right: 16px;
@@ -85,7 +123,7 @@ const UserImage = styled.div`
   height: 28px;
   border: 2px solid white;
   border-radius: 3px;
-  cursor: pointer;
+  position: relative;
   img {
     width: 100%;
   }
