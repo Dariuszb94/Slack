@@ -1,10 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import SearchIcon from "@material-ui/icons/Search";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
-import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
-
+import db from "../firebase";
+import firebase from "firebase";
 function Header({ user, signOut }) {
   const [show, setShow] = useState(false);
+  const [input, setInput] = useState("");
+  const getMessages = () => {
+    let messages = db.collectionGroup("messages").where("text", "in", ["rrr"]);
+    messages.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+    });
+  };
+  useEffect(() => {
+    getMessages();
+  }, []);
   const node = useRef();
   const showSignOut = () => {
     setShow((prev) => !prev);
@@ -24,16 +37,25 @@ function Header({ user, signOut }) {
     // outside click
     setShow(false);
   };
+  const search = () => {
+    console.log(input);
+  };
   return (
     <Container>
       <Main>
         <AccessTimeIcon />
         <SearchContainer>
           <Search>
-            <input type="text" placeholder="Search" />
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => setInput(e.target.value)}
+              type="text"
+              value={input}
+            />
           </Search>
         </SearchContainer>
-        <HelpOutlineIcon />
+        <SearchIcon onClick={getMessages} />
       </Main>
       <UserContainer ref={node} onClick={showSignOut}>
         <Name>{user.name}</Name>
@@ -117,6 +139,9 @@ const UserContainer = styled.div`
 `;
 const Name = styled.div`
   padding-right: 16px;
+`;
+const SearchIconStyled = styled(SearchIcon)`
+  cursor: pointer;
 `;
 const UserImage = styled.div`
   width: 28px;
