@@ -5,7 +5,7 @@ import Chat from "./components/Chat";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-
+import QueryView from "./views/query-view";
 import styled from "styled-components";
 import db from "./firebase";
 import { auth, provider } from "./firebase";
@@ -47,6 +47,7 @@ function App() {
                 <Route path="/">Select or create channel</Route>
               </Switch>
             </Main>
+            <QueryView />
           </Container>
         )}
       </Router>

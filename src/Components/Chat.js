@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
 import db from "../firebase";
+//import { QueryContext } from "../context/search";
 import { useParams } from "react-router";
 import firebase from "firebase";
 function Chat({ user }) {
   let { channelId } = useParams();
   const [channel, setChannel] = useState();
   const [messages, setMessages] = useState([]);
+  //const [query] = useContext(QueryContext);
   const getMessages = () => {
     db.collection("rooms")
       .doc(channelId)

@@ -1,12 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import db from "../firebase";
 import firebase from "firebase";
+import { QueryContext } from "../context/query-context";
 function Header({ user, signOut }) {
   const [show, setShow] = useState(false);
   const [input, setInput] = useState("");
+  const [query, setQuery] = useContext(QueryContext);
+
   const getMessages = () => {
     let messages = db
       .collectionGroup("messages")
@@ -15,11 +18,18 @@ function Header({ user, signOut }) {
     messages.get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
+        console.log(doc.ref.parent.parent.id);
+        setQuery(query - 1);
       });
     });
+    // messages.listCollections().then((querySnapshot) => {
+    //   querySnapshot.forEach((collection) => {
+    //     console.log("collection: " + collection.id);
+    //   });
+    // });
   };
   useEffect(() => {
-    getMessages();
+    //getMessages();
   }, []);
   const node = useRef();
   const showSignOut = () => {
