@@ -8,7 +8,10 @@ function Header({ user, signOut }) {
   const [show, setShow] = useState(false);
   const [input, setInput] = useState("");
   const getMessages = () => {
-    let messages = db.collectionGroup("messages").where("text", "in", ["rrr"]);
+    let messages = db
+      .collectionGroup("messages")
+      .where("text", ">=", input)
+      .where("text", "<=", input + "\uf8ff");
     messages.get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
@@ -37,9 +40,7 @@ function Header({ user, signOut }) {
     // outside click
     setShow(false);
   };
-  const search = () => {
-    console.log(input);
-  };
+
   return (
     <Container>
       <Main>
