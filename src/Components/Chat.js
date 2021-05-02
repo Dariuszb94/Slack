@@ -22,6 +22,9 @@ function Chat({ user }) {
         setMessages(messages);
       });
   };
+  //const value = useContext(newContext);
+
+  //console.log(value); // this will return { color: 'black' }
   const sendMessage = (text) => {
     if (channelId) {
       let payload = {

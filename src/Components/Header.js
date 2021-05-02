@@ -1,15 +1,21 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+  useReducer,
+} from "react";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import db from "../firebase";
+import { store } from "../store.js";
 import firebase from "firebase";
-import { QueryContext } from "../context/query-context";
 function Header({ user, signOut }) {
   const [show, setShow] = useState(false);
   const [input, setInput] = useState("");
-  const [query, setQuery] = useContext(QueryContext);
-
+  const globalState = useContext(store);
+  console.log(globalState);
   const getMessages = () => {
     let messages = db
       .collectionGroup("messages")
@@ -19,7 +25,6 @@ function Header({ user, signOut }) {
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " => ", doc.data());
         console.log(doc.ref.parent.parent.id);
-        setQuery(query - 1);
       });
     });
     // messages.listCollections().then((querySnapshot) => {
