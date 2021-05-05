@@ -9,13 +9,10 @@ import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import db from "../firebase";
-import { store } from "../store.js";
 import firebase from "firebase";
 function Header({ user, signOut }) {
   const [show, setShow] = useState(false);
   const [input, setInput] = useState("");
-  const globalState = useContext(store);
-  console.log(globalState);
   const getMessages = () => {
     let messages = db
       .collectionGroup("messages")
