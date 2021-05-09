@@ -8,9 +8,12 @@ import Sidebar from "./components/Sidebar";
 import styled from "styled-components";
 import db from "./firebase";
 import { auth, provider } from "./firebase";
+import ThemeContext from "./components/ThemeContext";
 function App() {
+  const themeHook = useState("light");
   const [rooms, setRooms] = useState([]);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const theme = "light";
   const signOut = () => {
     auth.signOut().then(() => {
       localStorage.removeItem("user");
@@ -30,7 +33,7 @@ function App() {
     getChannels();
   }, []);
   return (
-    <div className="App">
+    <ThemeContext.Provider value={themeHook}>
       <Router>
         {!user ? (
           <Login setUser={setUser} />
@@ -49,7 +52,7 @@ function App() {
           </Container>
         )}
       </Router>
-    </div>
+    </ThemeContext.Provider>
   );
 }
 

@@ -10,10 +10,17 @@ import SearchIcon from "@material-ui/icons/Search";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import db from "../firebase";
 import firebase from "firebase";
+import ThemeContext from "./ThemeContext";
+import ThemeToggler from "./ThemeToggler";
+import AppTheme from "../Colors";
 function Header({ user, signOut }) {
+  const theme = useContext(ThemeContext)[0];
+  const currentTheme = AppTheme[theme];
   const [show, setShow] = useState(false);
   const [input, setInput] = useState("");
   const getMessages = () => {
+    console.log(currentTheme);
+    return false;
     let messages = db
       .collectionGroup("messages")
       .where("text", ">=", input)
@@ -37,6 +44,7 @@ function Header({ user, signOut }) {
   const showSignOut = () => {
     setShow((prev) => !prev);
   };
+
   useEffect(() => {
     // add when mounted
     document.addEventListener("mousedown", handleClick);
@@ -81,6 +89,7 @@ function Header({ user, signOut }) {
             Log Out
           </Logout>
         </UserImage>
+        <ThemeToggler />
       </UserContainer>
     </Container>
   );
