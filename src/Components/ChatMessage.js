@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
-
+import AppTheme from "../Colors";
+import ThemeContext from "./ThemeContext";
 function ChatMessage({ text, name, image, timestamp }) {
+  const theme = useContext(ThemeContext)[0];
+  const currentTheme = AppTheme[theme];
+
+  useEffect(() => {
+    console.log(currentTheme);
+  }, [...Object.values(theme)]);
+
   return (
-    <Container>
+    <Container currentTheme={currentTheme}>
       <UserAvatar>
         <img src={image} alt="avatar" />
       </UserAvatar>
       <MessageContent>
-        <Name>
+        <Name currentTheme={currentTheme}>
           {name}
           <span>{new Date(timestamp.toDate()).toUTCString()}</span>
         </Name>
-        <Text>{text}</Text>
+        <Text currentTheme={currentTheme}>{text}</Text>
       </MessageContent>
     </Container>
   );
@@ -30,7 +38,7 @@ const Container = styled.div`
   -o-transition: background-color 0.2s ease-in-out;
   transition: background-color 0.2s ease-in-out;
   :hover {
-    background-color: #f5f5f5;
+    background-color: ${(props) => props.currentTheme.hover};
   }
 `;
 const UserAvatar = styled.div`
@@ -51,12 +59,14 @@ const Name = styled.span`
   font-weight: 900;
   font-size: 15px;
   line-height: 1.4;
-
+  color: ${(props) => props.currentTheme.textColor};
   span {
     margin-left: 8px;
     font-size: 13px;
     font-weight: 400;
-    color: rgb(97, 86, 87);
+    color: ${(props) => props.currentTheme.textColor};
   }
 `;
-const Text = styled.span``;
+const Text = styled.span`
+  color: ${(props) => props.currentTheme.textColor};
+`;

@@ -6,7 +6,6 @@ import ChatMessage from "./ChatMessage";
 import ThemeContext from "./ThemeContext";
 import AppTheme from "../Colors";
 import db from "../firebase";
-//import { QueryContext } from "../context/search";
 import { useParams } from "react-router";
 import firebase from "firebase";
 function Chat({ user }) {
@@ -15,7 +14,6 @@ function Chat({ user }) {
   const [messages, setMessages] = useState([]);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  //const [query] = useContext(QueryContext);
   const getMessages = () => {
     db.collection("rooms")
       .doc(channelId)
@@ -26,9 +24,6 @@ function Chat({ user }) {
         setMessages(messages);
       });
   };
-  //const value = useContext(newContext);
-
-  //console.log(value); // this will return { color: 'black' }
   const sendMessage = (text) => {
     if (channelId) {
       let payload = {
@@ -50,6 +45,7 @@ function Chat({ user }) {
   useEffect(() => {
     getChannel();
     getMessages();
+    console.log(messages);
   }, [channelId]);
   useEffect(() => {
     console.log(currentTheme);
@@ -72,7 +68,7 @@ function Chat({ user }) {
         {messages?.map((data, index) => (
           <ChatMessage
             text={data.text}
-            names={data.user}
+            name={data.user}
             image={data.userImage}
             timestamp={data.timestamp}
           />
