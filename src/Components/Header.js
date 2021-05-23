@@ -89,8 +89,8 @@ function Header({ user, signOut }) {
             Log Out
           </Logout>
         </UserImage>
-        <ThemeToggler />
       </UserContainer>
+      <ThemeToggler />
     </Container>
   );
 }

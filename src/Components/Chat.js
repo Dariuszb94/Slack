@@ -3,6 +3,8 @@ import styled from "styled-components";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
+import ThemeContext from "./ThemeContext";
+import AppTheme from "../Colors";
 import db from "../firebase";
 //import { QueryContext } from "../context/search";
 import { useParams } from "react-router";
@@ -11,6 +13,8 @@ function Chat({ user }) {
   let { channelId } = useParams();
   const [channel, setChannel] = useState();
   const [messages, setMessages] = useState([]);
+  const theme = useContext(ThemeContext)[0];
+  const currentTheme = AppTheme[theme];
   //const [query] = useContext(QueryContext);
   const getMessages = () => {
     db.collection("rooms")
@@ -46,7 +50,12 @@ function Chat({ user }) {
   useEffect(() => {
     getChannel();
     getMessages();
+    console.log(currentTheme);
   }, [channelId]);
+  useEffect(() => {
+    console.log("aaaa");
+    console.log(currentTheme);
+  }, [...Object.values(theme)]);
   return (
     <Container>
       <Header>
@@ -63,7 +72,7 @@ function Chat({ user }) {
         {messages?.map((data, index) => (
           <ChatMessage
             text={data.text}
-            name={data.user}
+            names={data.user}
             image={data.userImage}
             timestamp={data.timestamp}
           />
