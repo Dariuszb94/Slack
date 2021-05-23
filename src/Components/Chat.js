@@ -50,20 +50,20 @@ function Chat({ user }) {
   useEffect(() => {
     getChannel();
     getMessages();
-    console.log(currentTheme);
   }, [channelId]);
   useEffect(() => {
-    console.log("aaaa");
     console.log(currentTheme);
   }, [...Object.values(theme)]);
   return (
-    <Container>
+    <Container currentTheme={currentTheme}>
       <Header>
         <Channel>
-          <ChannelName>#{channel?.name}</ChannelName>
-          <ChannelInfo>Company wide</ChannelInfo>
+          <ChannelName currentTheme={currentTheme}>
+            #{channel?.name}
+          </ChannelName>
+          <ChannelInfo currentTheme={currentTheme}>Company wide</ChannelInfo>
         </Channel>
-        <ChannelDetails>
+        <ChannelDetails currentTheme={currentTheme}>
           <div>Details</div>
           <Info />
         </ChannelDetails>
@@ -88,6 +88,7 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 64px auto min-content;
   min-height: 0;
+  background-color: ${(props) => props.currentTheme.backgroundColor};
 `;
 const Header = styled.div`
   padding-left: 20px;
@@ -102,15 +103,18 @@ const ChannelDetails = styled.div`
   display: flex;
   align-items: center;
   color: #606060;
+  color: ${(props) => props.currentTheme.textColor};
 `;
 const ChannelName = styled.div`
   font-weight: 700;
+  color: ${(props) => props.currentTheme.textColor};
 `;
 const ChannelInfo = styled.div`
   font-weight: 400;
   color: #606060;
   font-size: 13px;
   margin-top: 8px;
+  color: ${(props) => props.currentTheme.textColor};
 `;
 
 const MessageContainer = styled.div`

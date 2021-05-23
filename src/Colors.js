@@ -1,6 +1,6 @@
 const AppTheme = {
   light: {
-    textColor: "#000",
+    textColor: "#606060",
     backgroundColor: "#fff",
   },
   dark: {
