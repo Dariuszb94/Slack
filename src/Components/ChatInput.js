@@ -13,7 +13,7 @@ function ChatInput({ sendMessage }) {
     <Container>
       <InputContainer>
         <form>
-          <input
+          <Input
             onChange={(e) => setInput(e.target.value)}
             type="text"
             value={input}
@@ -33,6 +33,9 @@ const Container = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   padding-left: 24px;
+`;
+const Input = styled.input`
+  background-color: inherit;
 `;
 const InputContainer = styled.div`
   border: 1px solid #8d8d8e;
