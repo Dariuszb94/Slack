@@ -45,11 +45,16 @@ function Chat({ user }) {
   useEffect(() => {
     getChannel();
     getMessages();
-    console.log(messages);
   }, [channelId]);
+  useEffect(() => {}, [...Object.values(theme)]);
   useEffect(() => {
-    console.log(currentTheme);
-  }, [...Object.values(theme)]);
+    const array = localStorage.getItem("channels");
+    const parsedArray = array ? JSON.parse(array) : [];
+    const newArray = parsedArray.includes(channelId)
+      ? parsedArray
+      : [...parsedArray, channelId];
+    localStorage.setItem("channels", JSON.stringify(newArray));
+  }, []);
   return (
     <Container currentTheme={currentTheme}>
       <Header>
