@@ -4,9 +4,14 @@ import AddIcon from "@material-ui/icons/Add";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import db from "../firebase";
 import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 
 function Sidebar(props) {
   const [expanded, setExpanded] = useState(true);
+  const [favChannels, setFavChannels] = useState(
+    JSON.parse(localStorage.getItem("channels"))
+  );
+
   const history = useHistory();
   const goToChannel = (id) => {
     if (id) {
@@ -23,13 +28,24 @@ function Sidebar(props) {
   };
   const expand = () => {
     setExpanded((prevExpanded) => !prevExpanded);
-    console.log(expanded);
   };
   return (
     <Container>
       <WorkspaceContainer>
         <Name> Chatter </Name>
       </WorkspaceContainer>
+      <FavChannelsContainer>
+        {/* {favChannels.map((item) => (
+          <Channel
+            expanded={expanded}
+            onClick={() => {
+              goToChannel(item.id);
+            }}
+          >
+            #{item.name}
+          </Channel>
+        ))} */}
+      </FavChannelsContainer>
       <ChannelsContainer>
         <NewChannelContainer>
           <ChannelExpand onClick={expand}>
@@ -60,6 +76,7 @@ export default Sidebar;
 const Container = styled.div`
   background-color: #3f0e40;
 `;
+const FavChannelsContainer = styled.div``;
 const ChannelExpand = styled.div`
   display: flex;
   cursor: pointer;

@@ -42,19 +42,27 @@ function Chat({ user }) {
         setChannel(snapshot.data());
       });
   };
+  const save = () => {
+    const array = localStorage.getItem("channels");
+    const channelToFav = {
+      id: channelId,
+      name: channel.name,
+    };
+
+    const parsedArray = array ? JSON.parse(array) : [];
+    let parsedArrayUnique = parsedArray.filter(
+      (searchedID) => searchedID.id != channelId
+    );
+    const newArray = [...parsedArrayUnique, channelToFav];
+
+    localStorage.setItem("channels", JSON.stringify(newArray));
+  };
   useEffect(() => {
     getChannel();
     getMessages();
   }, [channelId]);
   useEffect(() => {}, [...Object.values(theme)]);
-  useEffect(() => {
-    const array = localStorage.getItem("channels");
-    const parsedArray = array ? JSON.parse(array) : [];
-    const newArray = parsedArray.includes(channelId)
-      ? parsedArray
-      : [...parsedArray, channelId];
-    localStorage.setItem("channels", JSON.stringify(newArray));
-  }, []);
+  useEffect(() => {}, []);
   return (
     <Container currentTheme={currentTheme}>
       <Header>
@@ -62,6 +70,7 @@ function Chat({ user }) {
           <ChannelName currentTheme={currentTheme}>
             #{channel?.name}
           </ChannelName>
+          <SaveFav onClick={save}></SaveFav>
           <ChannelInfo currentTheme={currentTheme}>Company wide</ChannelInfo>
         </Channel>
         <ChannelDetails currentTheme={currentTheme}>
@@ -85,6 +94,10 @@ function Chat({ user }) {
 }
 
 export default Chat;
+const SaveFav = styled.button`
+  width: 50px;
+  height: 50px;
+`;
 const Container = styled.div`
   display: grid;
   grid-template-rows: 64px auto min-content;
