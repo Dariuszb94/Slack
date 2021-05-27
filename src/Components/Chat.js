@@ -48,14 +48,20 @@ function Chat({ user }) {
       id: channelId,
       name: channel.name,
     };
+    let afterDoubleSearch = [];
+    const parsedArray = array ? JSON.parse(array) : [channelToFav];
+    let foundDouble = false;
+    parsedArray.forEach(function (searchedID) {
+      if (searchedID.id == channelId) {
+        foundDouble = true;
+      } else {
+        afterDoubleSearch.push(searchedID);
+      }
+    });
+    console.log(afterDoubleSearch);
+    //const newArray = [...parsedArrayUnique, channelToFav];
 
-    const parsedArray = array ? JSON.parse(array) : [];
-    let parsedArrayUnique = parsedArray.filter(
-      (searchedID) => searchedID.id != channelId
-    );
-    const newArray = [...parsedArrayUnique, channelToFav];
-
-    localStorage.setItem("channels", JSON.stringify(newArray));
+    // /localStorage.setItem("channels", JSON.stringify(newArray));
   };
   useEffect(() => {
     getChannel();
@@ -70,7 +76,20 @@ function Chat({ user }) {
           <ChannelName currentTheme={currentTheme}>
             #{channel?.name}
           </ChannelName>
-          <SaveFav onClick={save}></SaveFav>
+          <SaveFav onClick={save}>
+            <svg
+              version="1.1"
+              id="heart-15"
+              xmlns="http://www.w3.org/2000/svg"
+              width="15px"
+              height="15px"
+              viewBox="0 0 15 15"
+            >
+              <path
+                d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"
+              />
+            </svg>
+          </SaveFav>
           <ChannelInfo currentTheme={currentTheme}>Company wide</ChannelInfo>
         </Channel>
         <ChannelDetails currentTheme={currentTheme}>
@@ -94,9 +113,8 @@ function Chat({ user }) {
 }
 
 export default Chat;
-const SaveFav = styled.button`
-  width: 50px;
-  height: 50px;
+const SaveFav = styled.div`
+  cursor: pointer;
 `;
 const Container = styled.div`
   display: grid;

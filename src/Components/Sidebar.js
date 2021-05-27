@@ -35,6 +35,7 @@ function Sidebar(props) {
         <Name> Chatter </Name>
       </WorkspaceContainer>
       <FavChannelsContainer>
+        <FavTitle>Favourite channels</FavTitle>
         {/* {favChannels.map((item) => (
           <Channel
             expanded={expanded}
@@ -75,6 +76,10 @@ export default Sidebar;
 
 const Container = styled.div`
   background-color: #3f0e40;
+`;
+const FavTitle = styled.div`
+  color: rgb(188, 171, 188);
+  padding-left: 19px;
 `;
 const FavChannelsContainer = styled.div``;
 const ChannelExpand = styled.div`
@@ -151,7 +156,7 @@ const Channel = styled.div`
   align-items: center;
   padding-left: 19px;
   cursor: pointer;
-
+  color: rgb(188, 171, 188);
   :hover {
     background-color: #350d36;
     font-weight: bold;
