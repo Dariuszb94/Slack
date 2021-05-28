@@ -49,19 +49,23 @@ function Chat({ user }) {
       name: channel.name,
     };
     let afterDoubleSearch = [];
-    const parsedArray = array ? JSON.parse(array) : [channelToFav];
+    const parsedArray = array ? JSON.parse(array) : [];
     let foundDouble = false;
-    parsedArray.forEach(function (searchedID) {
+    const parsedArrayToLoop = [...parsedArray];
+    parsedArrayToLoop.forEach(function (searchedID, index) {
       if (searchedID.id == channelId) {
-        foundDouble = true;
-      } else {
-        afterDoubleSearch.push(searchedID);
+        parsedArray.splice(index, 1);
+        return (foundDouble = true);
       }
     });
-    console.log(afterDoubleSearch);
+    console.log(parsedArray);
+    if (!foundDouble) parsedArray.push(channelToFav);
+    console.log(foundDouble);
+
+    //console.log(afterDoubleSearch);
     //const newArray = [...parsedArrayUnique, channelToFav];
 
-    // /localStorage.setItem("channels", JSON.stringify(newArray));
+    localStorage.setItem("channels", JSON.stringify(parsedArray));
   };
   useEffect(() => {
     getChannel();
