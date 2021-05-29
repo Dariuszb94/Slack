@@ -29,6 +29,9 @@ function Sidebar(props) {
   const expand = () => {
     setExpanded((prevExpanded) => !prevExpanded);
   };
+  useEffect(() => {
+    setFavChannels(props.favs);
+  }, [props.favs]);
   return (
     <Container>
       <WorkspaceContainer>
@@ -36,7 +39,7 @@ function Sidebar(props) {
       </WorkspaceContainer>
       <FavChannelsContainer>
         <FavTitle>Favourite channels</FavTitle>
-        {/* {favChannels.map((item) => (
+        {favChannels.map((item) => (
           <Channel
             expanded={expanded}
             onClick={() => {
@@ -45,7 +48,7 @@ function Sidebar(props) {
           >
             #{item.name}
           </Channel>
-        ))} */}
+        ))}
       </FavChannelsContainer>
       <ChannelsContainer>
         <NewChannelContainer>

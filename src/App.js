@@ -14,7 +14,9 @@ function App() {
   const themeHook = useState("light");
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
+  const [favs, changeFavs] = useState([]);
   const [rooms, setRooms] = useState([]);
+
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   //const theme = "light";
   const signOut = () => {
@@ -32,9 +34,13 @@ function App() {
       );
     });
   };
+
   useEffect(() => {
     getChannels();
   }, []);
+  useEffect(() => {
+    console.log(favs);
+  }, [changeFavs]);
   return (
     <ThemeContext.Provider value={themeHook}>
       <Router>
@@ -44,10 +50,10 @@ function App() {
           <Container>
             <Header signOut={signOut} user={user} />
             <Main currentTheme={currentTheme} themeHook={themeHook}>
-              <Sidebar rooms={rooms} />
+              <Sidebar rooms={rooms} favs={favs} />
               <Switch>
                 <Route path="/room/:channelId">
-                  <Chat user={user} />
+                  <Chat changeFavs={changeFavs} user={user} />
                 </Route>
                 <Route path="/">
                   <ChannelEmpty>Select or create channel</ChannelEmpty>

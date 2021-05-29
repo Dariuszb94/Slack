@@ -8,10 +8,11 @@ import AppTheme from "../Colors";
 import db from "../firebase";
 import { useParams } from "react-router";
 import firebase from "firebase";
-function Chat({ user }) {
+function Chat({ user, changeFavs }) {
   let { channelId } = useParams();
   const [channel, setChannel] = useState();
   const [messages, setMessages] = useState([]);
+
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const getMessages = () => {
@@ -48,7 +49,6 @@ function Chat({ user }) {
       id: channelId,
       name: channel.name,
     };
-    let afterDoubleSearch = [];
     const parsedArray = array ? JSON.parse(array) : [];
     let foundDouble = false;
     const parsedArrayToLoop = [...parsedArray];
@@ -58,15 +58,11 @@ function Chat({ user }) {
         return (foundDouble = true);
       }
     });
-    console.log(parsedArray);
     if (!foundDouble) parsedArray.push(channelToFav);
-    console.log(foundDouble);
-
-    //console.log(afterDoubleSearch);
-    //const newArray = [...parsedArrayUnique, channelToFav];
-
     localStorage.setItem("channels", JSON.stringify(parsedArray));
+    changeFavs(parsedArray);
   };
+
   useEffect(() => {
     getChannel();
     getMessages();

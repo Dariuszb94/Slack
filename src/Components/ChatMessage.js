@@ -6,10 +6,6 @@ function ChatMessage({ text, name, image, timestamp }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
 
-  useEffect(() => {
-    console.log(currentTheme);
-  }, [...Object.values(theme)]);
-
   return (
     <Container currentTheme={currentTheme}>
       <UserAvatar>
