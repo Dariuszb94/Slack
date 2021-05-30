@@ -32,6 +32,9 @@ function Sidebar(props) {
   useEffect(() => {
     setFavChannels(props.favs);
   }, [props.favs]);
+  useEffect(() => {
+    setFavChannels(props.favs);
+  }, []);
   return (
     <Container>
       <WorkspaceContainer>

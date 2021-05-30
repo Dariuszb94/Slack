@@ -12,7 +12,7 @@ function Chat({ user, changeFavs }) {
   let { channelId } = useParams();
   const [channel, setChannel] = useState();
   const [messages, setMessages] = useState([]);
-
+  const [isFav, setFav] = useState(false);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const getMessages = () => {
@@ -58,7 +58,11 @@ function Chat({ user, changeFavs }) {
         return (foundDouble = true);
       }
     });
-    if (!foundDouble) parsedArray.push(channelToFav);
+    if (!foundDouble) {
+      parsedArray.push(channelToFav);
+    }
+    setFav(!foundDouble);
+
     localStorage.setItem("channels", JSON.stringify(parsedArray));
     changeFavs(parsedArray);
   };
@@ -68,7 +72,11 @@ function Chat({ user, changeFavs }) {
     getMessages();
   }, [channelId]);
   useEffect(() => {}, [...Object.values(theme)]);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    localStorage.getItem("channels").includes(channelId)
+      ? setFav(true)
+      : setFav(false);
+  }, []);
   return (
     <Container currentTheme={currentTheme}>
       <Header>
@@ -84,6 +92,7 @@ function Chat({ user, changeFavs }) {
               width="15px"
               height="15px"
               viewBox="0 0 15 15"
+              fill={isFav ? "red" : "gray"}
             >
               <path
                 d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"
