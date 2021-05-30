@@ -73,10 +73,10 @@ function Chat({ user, changeFavs }) {
   }, [channelId]);
   useEffect(() => {}, [...Object.values(theme)]);
   useEffect(() => {
-    localStorage.getItem("channels").includes(channelId)
+    localStorage.getItem("channels")?.includes(channelId)
       ? setFav(true)
       : setFav(false);
-  }, []);
+  }, [channelId]);
   return (
     <Container currentTheme={currentTheme}>
       <Header>
@@ -85,19 +85,19 @@ function Chat({ user, changeFavs }) {
             #{channel?.name}
           </ChannelName>
           <SaveFav onClick={save}>
-            <svg
+            <Heart
+              isFav={isFav}
               version="1.1"
               id="heart-15"
               xmlns="http://www.w3.org/2000/svg"
               width="15px"
               height="15px"
               viewBox="0 0 15 15"
-              fill={isFav ? "red" : "gray"}
             >
               <path
                 d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"
               />
-            </svg>
+            </Heart>
           </SaveFav>
           <ChannelInfo currentTheme={currentTheme}>Company wide</ChannelInfo>
         </Channel>
@@ -124,6 +124,9 @@ function Chat({ user, changeFavs }) {
 export default Chat;
 const SaveFav = styled.div`
   cursor: pointer;
+`;
+const Heart = styled.svg`
+  fill: ${(props) => (props.isFav ? "red" : "gray")};
 `;
 const Container = styled.div`
   display: grid;

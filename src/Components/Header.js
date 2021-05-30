@@ -31,11 +31,6 @@ function Header({ user, signOut }) {
         console.log(doc.ref.parent.parent.id);
       });
     });
-    // messages.listCollections().then((querySnapshot) => {
-    //   querySnapshot.forEach((collection) => {
-    //     console.log("collection: " + collection.id);
-    //   });
-    // });
   };
   useEffect(() => {
     //getMessages();

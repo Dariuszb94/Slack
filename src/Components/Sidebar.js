@@ -33,7 +33,9 @@ function Sidebar(props) {
     setFavChannels(props.favs);
   }, [props.favs]);
   useEffect(() => {
-    setFavChannels(props.favs);
+    // setInterval(function () {
+    //   console.log(props);
+    // }, 1000);
   }, []);
   return (
     <Container>
@@ -42,7 +44,7 @@ function Sidebar(props) {
       </WorkspaceContainer>
       <FavChannelsContainer>
         <FavTitle>Favourite channels</FavTitle>
-        {favChannels.map((item) => (
+        {favChannels?.map((item) => (
           <Channel
             expanded={expanded}
             onClick={() => {

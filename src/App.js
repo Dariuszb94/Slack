@@ -14,7 +14,9 @@ function App() {
   const themeHook = useState("light");
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
-  const [favs, changeFavs] = useState([]);
+  const [favs, changeFavs] = useState(
+    JSON.parse(localStorage.getItem("channels"))
+  );
   const [rooms, setRooms] = useState([]);
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -38,9 +40,7 @@ function App() {
   useEffect(() => {
     getChannels();
   }, []);
-  useEffect(() => {
-    console.log(favs);
-  }, [changeFavs]);
+  useEffect(() => {}, [changeFavs]);
   return (
     <ThemeContext.Provider value={themeHook}>
       <Router>
