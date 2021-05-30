@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import styled from "styled-components";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import ChatInput from "./ChatInput";
@@ -8,6 +8,8 @@ import AppTheme from "../Colors";
 import db from "../firebase";
 import { useParams } from "react-router";
 import firebase from "firebase";
+import { gsap } from "gsap";
+import { duration } from "@material-ui/core";
 function Chat({ user, changeFavs }) {
   let { channelId } = useParams();
   const [channel, setChannel] = useState();
@@ -15,6 +17,8 @@ function Chat({ user, changeFavs }) {
   const [isFav, setFav] = useState(false);
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
+  const boxRef = useRef();
+
   const getMessages = () => {
     db.collection("rooms")
       .doc(channelId)
@@ -52,6 +56,7 @@ function Chat({ user, changeFavs }) {
     const parsedArray = array ? JSON.parse(array) : [];
     let foundDouble = false;
     const parsedArrayToLoop = [...parsedArray];
+
     parsedArrayToLoop.forEach(function (searchedID, index) {
       if (searchedID.id == channelId) {
         parsedArray.splice(index, 1);
@@ -77,6 +82,17 @@ function Chat({ user, changeFavs }) {
       ? setFav(true)
       : setFav(false);
   }, [channelId]);
+  useEffect(() => {
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(
+      [boxRef.current],
+      1,
+      {
+        scale: 0.6,
+      },
+      { scale: 1.5 }
+    ).play();
+  }, [isFav]);
   return (
     <Container currentTheme={currentTheme}>
       <Header>
@@ -84,8 +100,10 @@ function Chat({ user, changeFavs }) {
           <ChannelName currentTheme={currentTheme}>
             #{channel?.name}
           </ChannelName>
+
           <SaveFav onClick={save}>
             <Heart
+              ref={boxRef}
               isFav={isFav}
               version="1.1"
               id="heart-15"
@@ -99,7 +117,6 @@ function Chat({ user, changeFavs }) {
               />
             </Heart>
           </SaveFav>
-          <ChannelInfo currentTheme={currentTheme}>Company wide</ChannelInfo>
         </Channel>
         <ChannelDetails currentTheme={currentTheme}>
           <div>Details</div>
@@ -126,7 +143,10 @@ const SaveFav = styled.div`
   cursor: pointer;
 `;
 const Heart = styled.svg`
-  fill: ${(props) => (props.isFav ? "red" : "gray")};
+  fill: ${(props) => (props.isFav ? "#340E36" : "gray")};
+  filter: ${(props) =>
+    props.isFav ? "drop-shadow(0px 0px 15px #340E36)" : null};
+  -webkit-transition: -webkit-filter 500ms linear;
 `;
 const Container = styled.div`
   display: grid;
@@ -142,7 +162,10 @@ const Header = styled.div`
   border-bottom: 1px solid rgba(63, 39, 83, 0.13);
   justify-content: space-between;
 `;
-const Channel = styled.div``;
+const Channel = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const ChannelDetails = styled.div`
   display: flex;
   align-items: center;
@@ -152,6 +175,7 @@ const ChannelDetails = styled.div`
 const ChannelName = styled.div`
   font-weight: 700;
   color: ${(props) => props.currentTheme.textColor};
+  margin-right: 24px;
 `;
 const ChannelInfo = styled.div`
   font-weight: 400;
