@@ -9,7 +9,6 @@ import db from "../firebase";
 import { useParams } from "react-router";
 import firebase from "firebase";
 import { gsap } from "gsap";
-import { duration } from "@material-ui/core";
 function Chat({ user, changeFavs }) {
   let { channelId } = useParams();
   const [channel, setChannel] = useState();
