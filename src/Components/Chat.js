@@ -142,7 +142,7 @@ const SaveFav = styled.div`
   cursor: pointer;
 `;
 const Heart = styled.svg`
-  fill: ${(props) => (props.isFav ? "#340E36" : "gray")};
+  fill: ${(props) => (props.isFav ? "#340E36" : "lightgray")};
   filter: ${(props) =>
     props.isFav ? "drop-shadow(0px 0px 15px #340E36)" : null};
   -webkit-transition: -webkit-filter 500ms linear;
