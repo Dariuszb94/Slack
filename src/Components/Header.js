@@ -13,28 +13,47 @@ import firebase from "firebase";
 import ThemeContext from "./ThemeContext";
 import ThemeToggler from "./ThemeToggler";
 import AppTheme from "../Colors";
+import { useHistory } from "react-router-dom";
 function Header({ user, signOut }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
+  const [resultsList, setResultsList] = useState([]);
   const [show, setShow] = useState(false);
   const [input, setInput] = useState("");
-  const getMessages = () => {
-    console.log(currentTheme);
-    return false;
+  const history = useHistory();
+  const goToChannel = (id) => {
+    if (id) {
+      history.push(`/room/${id}`);
+    }
+  };
+  const getMessages = async (id) => {
+    if (id.length == 0) {
+      setResultsList([]);
+      return;
+    }
+    await setInput(id);
     let messages = db
       .collectionGroup("messages")
       .where("text", ">=", input)
       .where("text", "<=", input + "\uf8ff");
     messages.get().then((querySnapshot) => {
+      let resultsListRaw = [];
       querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-        console.log(doc.ref.parent.parent.id);
+        //console.log(doc.id, " => ", doc.data().text);
+        //console.log(doc.ref.parent.parent.id); //channelId
+        let result = {
+          channel: doc.ref.parent.parent.id,
+          text: doc.data().text,
+        };
+        resultsListRaw.push(result);
       });
+      setResultsList(resultsListRaw.slice(0, 5));
     });
   };
   useEffect(() => {
-    //getMessages();
-  }, []);
+    console.log(input);
+    console.log(resultsList);
+  }, [resultsList]);
   const node = useRef();
   const showSignOut = () => {
     setShow((prev) => !prev);
@@ -65,11 +84,19 @@ function Header({ user, signOut }) {
             <input
               type="text"
               placeholder="Search"
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => {
+                getMessages(e.target.value);
+              }}
               type="text"
               value={input}
             />
           </Search>
+          <Results className="results">
+            {resultsList.map((result) => {
+              console.log(result);
+              return <Result>{result.text}</Result>;
+            })}
+          </Results>
         </SearchContainer>
         <SearchIcon onClick={getMessages} />
       </Main>
@@ -102,6 +129,8 @@ const Container = styled.div`
   z-index: 10;
   box-shadow: 0 1px 0 0 rgb(255 255 255 / 10%);
 `;
+const Results = styled.div``;
+const Result = styled.div``;
 
 const Logout = styled.div`
   position: absolute;
