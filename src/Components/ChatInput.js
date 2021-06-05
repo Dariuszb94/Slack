@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import SendIcon from "@material-ui/icons/Send";
+
 function ChatInput({ sendMessage }) {
   const [input, setInput] = useState("");
   const send = (e) => {
+    console.log(input);
     e.preventDefault();
     if (!input) return;
     sendMessage(input);
@@ -12,7 +14,7 @@ function ChatInput({ sendMessage }) {
   return (
     <Container>
       <InputContainer>
-        <form>
+        <form onSubmit={send}>
           <Input
             onChange={(e) => setInput(e.target.value)}
             type="text"
