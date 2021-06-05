@@ -21,7 +21,11 @@ function Header({ user, signOut }) {
   const [show, setShow] = useState(false);
   const [input, setInput] = useState("");
   const history = useHistory();
+  const refContainer = useRef(null);
+
   const goToChannel = (id) => {
+    setResultsList([]);
+    setInput("");
     if (id) {
       history.push(`/room/${id}`);
     }
@@ -29,6 +33,7 @@ function Header({ user, signOut }) {
   const getMessages = async (id) => {
     if (id.length == 0) {
       setResultsList([]);
+      setInput(id);
       return;
     }
     await setInput(id);
@@ -39,8 +44,6 @@ function Header({ user, signOut }) {
     messages.get().then((querySnapshot) => {
       let resultsListRaw = [];
       querySnapshot.forEach((doc) => {
-        //console.log(doc.id, " => ", doc.data().text);
-        //console.log(doc.ref.parent.parent.id); //channelId
         let result = {
           channel: doc.ref.parent.parent.id,
           text: doc.data().text,
@@ -50,10 +53,7 @@ function Header({ user, signOut }) {
       setResultsList(resultsListRaw.slice(0, 5));
     });
   };
-  useEffect(() => {
-    console.log(input);
-    console.log(resultsList);
-  }, [resultsList]);
+  useEffect(() => {}, [resultsList]);
   const node = useRef();
   const showSignOut = () => {
     setShow((prev) => !prev);
@@ -93,8 +93,11 @@ function Header({ user, signOut }) {
           </Search>
           <Results className="results">
             {resultsList.map((result) => {
-              console.log(result);
-              return <Result>{result.text}</Result>;
+              return (
+                <Result onClick={() => goToChannel(result.channel)}>
+                  {result.text}
+                </Result>
+              );
             })}
           </Results>
         </SearchContainer>
@@ -129,8 +132,37 @@ const Container = styled.div`
   z-index: 10;
   box-shadow: 0 1px 0 0 rgb(255 255 255 / 10%);
 `;
-const Results = styled.div``;
-const Result = styled.div``;
+const Results = styled.ul`
+  position: absolute;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+`;
+const Result = styled.li`
+  padding: 8px;
+  cursor: pointer;
+  color: black;
+  border-right: 1px solid #debcde;
+  border-left: 1px solid #debcde;
+  &:nth-child(odd) {
+    background-color: #debcde;
+  }
+
+  &:first-child {
+    border-top: 1px solid #debcde;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+  }
+  &:last-child {
+    border-bottom: 1px solid #debcde;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+  &:nth-child(even) {
+    background-color: white;
+  }
+`;
 
 const Logout = styled.div`
   position: absolute;
@@ -154,6 +186,7 @@ const SearchContainer = styled.div`
   min-width: 400px;
   margin-left: 16px;
   margin-right: 16px;
+  position: relative;
 `;
 const Search = styled.div`
   box-shadow: inset 0 0 0 1px rgb(104 74 104);
