@@ -36,7 +36,19 @@ function App() {
       );
     });
   };
-
+  const useClickOutside = (ref, callback) => {
+    const handleClick = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        callback();
+      }
+    };
+    useEffect(() => {
+      document.addEventListener("click", handleClick);
+      return () => {
+        document.removeEventListener("click", handleClick);
+      };
+    });
+  };
   useEffect(() => {
     getChannels();
   }, []);
@@ -48,7 +60,11 @@ function App() {
           <Login setUser={setUser} />
         ) : (
           <Container>
-            <Header signOut={signOut} user={user} />
+            <Header
+              signOut={signOut}
+              user={user}
+              useClickOutside={useClickOutside}
+            />
             <Main currentTheme={currentTheme} themeHook={themeHook}>
               <Sidebar rooms={rooms} favs={favs} />
               <Switch>

@@ -5,6 +5,7 @@ import React, {
   useContext,
   useReducer,
 } from "react";
+import useClickOutside from "./hooks/ClickOutsideHook";
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
@@ -13,15 +14,20 @@ import firebase from "firebase";
 import ThemeContext from "./ThemeContext";
 import ThemeToggler from "./ThemeToggler";
 import AppTheme from "../Colors";
+
 import { useHistory } from "react-router-dom";
-function Header({ user, signOut }) {
+function Header({ user, signOut, onClickOutside }) {
   const theme = useContext(ThemeContext)[0];
   const currentTheme = AppTheme[theme];
   const [resultsList, setResultsList] = useState([]);
   const [show, setShow] = useState(false);
   const [input, setInput] = useState("");
   const history = useHistory();
-  const refContainer = useRef(null);
+  const node = useRef();
+  const clickRef = useRef();
+
+  useClickOutside(clickRef, () => setResultsList([]));
+  useClickOutside(node, () => setShow(false));
 
   const goToChannel = (id) => {
     setResultsList([]);
@@ -54,25 +60,8 @@ function Header({ user, signOut }) {
     });
   };
   useEffect(() => {}, [resultsList]);
-  const node = useRef();
   const showSignOut = () => {
     setShow((prev) => !prev);
-  };
-
-  useEffect(() => {
-    // add when mounted
-    document.addEventListener("mousedown", handleClick);
-    // return function to be called when unmounted
-    return () => {
-      document.removeEventListener("mousedown", handleClick);
-    };
-  }, []);
-  const handleClick = (e) => {
-    if (node.current.contains(e.target)) {
-      return;
-    }
-    // outside click
-    setShow(false);
   };
 
   return (
@@ -91,7 +80,7 @@ function Header({ user, signOut }) {
               value={input}
             />
           </Search>
-          <Results className="results">
+          <Results className="results" ref={clickRef}>
             {resultsList.map((result) => {
               return (
                 <Result onClick={() => goToChannel(result.channel)}>
@@ -101,7 +90,7 @@ function Header({ user, signOut }) {
             })}
           </Results>
         </SearchContainer>
-        <SearchIcon onClick={getMessages} />
+        <SearchIcon onClick={() => getMessages(input)} />
       </Main>
       <UserContainer ref={node} onClick={showSignOut}>
         <Name>{user.name}</Name>
