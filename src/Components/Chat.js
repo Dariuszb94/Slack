@@ -75,7 +75,7 @@ function Chat({ user, changeFavs }) {
     getChannel();
     getMessages();
   }, [channelId]);
-  useEffect(() => {}, [...Object.values(theme)]);
+  //useEffect(() => {}, [...Object.values(theme)]);
   useEffect(() => {
     localStorage.getItem("channels")?.includes(channelId)
       ? setFav(true)

@@ -55,7 +55,7 @@ function Sidebar(props) {
         <NewChannelContainer>
           <ChannelExpand onClick={expand}>
             <div> Channels </div>
-            <ExpandLessIconStyled expanded={expanded} />
+            <ExpandLessIconStyled $expanded={expanded} />
           </ChannelExpand>
           <AddIconStyled onClick={addChannel} />
         </NewChannelContainer>

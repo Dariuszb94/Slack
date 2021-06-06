@@ -67,7 +67,6 @@ function Header({ user, signOut, onClickOutside }) {
   return (
     <Container>
       <Main>
-        <AccessTimeIcon />
         <SearchContainer>
           <Search>
             <input
@@ -83,14 +82,17 @@ function Header({ user, signOut, onClickOutside }) {
           <Results className="results" ref={clickRef}>
             {resultsList.map((result) => {
               return (
-                <Result onClick={() => goToChannel(result.channel)}>
+                <Result
+                  onClick={() => goToChannel(result.channel)}
+                  currentTheme={currentTheme}
+                >
                   {result.text}
                 </Result>
               );
             })}
           </Results>
         </SearchContainer>
-        <SearchIcon onClick={() => getMessages(input)} />
+        <SearchIconStyled onClick={() => getMessages(input)} />
       </Main>
       <UserContainer ref={node} onClick={showSignOut}>
         <Name>{user.name}</Name>
@@ -149,7 +151,8 @@ const Result = styled.li`
     border-bottom-right-radius: 6px;
   }
   &:nth-child(even) {
-    background-color: white;
+    color: ${(props) => props.currentTheme.textColor};
+    background-color: ${(props) => props.currentTheme.backgroundColor};
   }
 `;
 

@@ -5,7 +5,6 @@ import SendIcon from "@material-ui/icons/Send";
 function ChatInput({ sendMessage }) {
   const [input, setInput] = useState("");
   const send = (e) => {
-    console.log(input);
     e.preventDefault();
     if (!input) return;
     sendMessage(input);
@@ -42,6 +41,7 @@ const Input = styled.input`
 const InputContainer = styled.div`
   border: 1px solid #8d8d8e;
   border-radius: 4px;
+  margin-bottom: 8px;
   form {
     display: flex;
     height: 42px;
