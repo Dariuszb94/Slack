@@ -90,6 +90,9 @@ const Container = styled.div`
   height: 100vh;
   display: grid;
   grid-template-rows: 38px minmax(0, 1fr);
+  @media (max-width: 768px) {
+    grid-template-rows: min-content minmax(0, 1fr);
+  }
 `;
 const ChannelEmpty = styled.div`
   padding: 20px;

@@ -94,6 +94,10 @@ function Header({ user, signOut, onClickOutside }) {
         </SearchContainer>
         <SearchIconStyled onClick={() => getMessages(input)} />
       </Main>
+      <ThemeToggleContainer>
+        <ThemeToggler />
+      </ThemeToggleContainer>
+
       <UserContainer ref={node} onClick={showSignOut}>
         <Name>{user.name}</Name>
         <UserImage>
@@ -106,7 +110,6 @@ function Header({ user, signOut, onClickOutside }) {
           </Logout>
         </UserImage>
       </UserContainer>
-      <ThemeToggler />
     </Container>
   );
 }
@@ -118,10 +121,21 @@ const Container = styled.div`
   color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   position: relative;
   z-index: 10;
   box-shadow: 0 1px 0 0 rgb(255 255 255 / 10%);
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    padding: 8px;
+  }
+`;
+
+const ThemeToggleContainer = styled.div`
+  cursor: pointer;
+  position: absolute;
+  right: 8px;
+  top: 8px;
 `;
 const Results = styled.ul`
   position: absolute;
@@ -176,9 +190,10 @@ const Main = styled.div`
 `;
 const SearchContainer = styled.div`
   min-width: 400px;
-  margin-left: 16px;
-  margin-right: 16px;
   position: relative;
+  @media (max-width: 768px) {
+    min-width: unset;
+  }
 `;
 const Search = styled.div`
   box-shadow: inset 0 0 0 1px rgb(104 74 104);
@@ -204,15 +219,19 @@ const UserContainer = styled.div`
   display: flex;
   align-items: center;
   padding-right: 16px;
-  position: absolute;
   right: 0;
   cursor: pointer;
+  @media (max-width: 768px) {
+    margin-bottom: 8px;
+    align-self: self-start;
+  }
 `;
 const Name = styled.div`
   padding-right: 16px;
 `;
 const SearchIconStyled = styled(SearchIcon)`
   cursor: pointer;
+  margin-left: 8px;
 `;
 const UserImage = styled.div`
   width: 28px;

@@ -40,8 +40,9 @@ function Sidebar(props) {
       </WorkspaceContainer>
       <FavChannelsContainer>
         <FavTitle>Favourite channels</FavTitle>
-        {favChannels?.map((item) => (
+        {favChannels?.map((item, index) => (
           <Channel
+            key={index}
             expanded={expanded}
             onClick={() => {
               goToChannel(item.id);
@@ -60,8 +61,9 @@ function Sidebar(props) {
           <AddIconStyled onClick={addChannel} />
         </NewChannelContainer>
         <ChannelsList expanded={expanded}>
-          {props.rooms.map((item) => (
+          {props.rooms.map((item, index) => (
             <Channel
+              key={index}
               expanded={expanded}
               onClick={() => {
                 goToChannel(item.id);

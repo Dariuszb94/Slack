@@ -75,7 +75,6 @@ function Chat({ user, changeFavs }) {
     getChannel();
     getMessages();
   }, [channelId]);
-  //useEffect(() => {}, [...Object.values(theme)]);
   useEffect(() => {
     localStorage.getItem("channels")?.includes(channelId)
       ? setFav(true)
@@ -117,13 +116,9 @@ function Chat({ user, changeFavs }) {
             </Heart>
           </SaveFav>
         </Channel>
-        <ChannelDetails currentTheme={currentTheme}>
-          <div>Details</div>
-          <Info />
-        </ChannelDetails>
       </Header>
       <MessageContainer>
-        {messages?.map((data, index) => (
+        {messages?.map((data) => (
           <ChatMessage
             text={data.text}
             name={data.user}
