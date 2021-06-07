@@ -34,6 +34,12 @@ const Container = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   padding-left: 24px;
+  @media (max-width: 768px) {
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 44px);
+    padding-left: 20px;
+  }
 `;
 const Input = styled.input`
   background-color: inherit;

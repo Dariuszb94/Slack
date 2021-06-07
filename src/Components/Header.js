@@ -133,9 +133,11 @@ const Container = styled.div`
 
 const ThemeToggleContainer = styled.div`
   cursor: pointer;
-  position: absolute;
-  right: 8px;
-  top: 8px;
+  @media (max-width: 768px) {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
 `;
 const Results = styled.ul`
   position: absolute;
@@ -187,6 +189,10 @@ const Main = styled.div`
   display: flex;
   margin-right: 16px;
   margin-left: 16px;
+  @media (max-width: 768px) {
+    min-width: unset;
+    margin-top: 8px;
+  }
 `;
 const SearchContainer = styled.div`
   min-width: 400px;

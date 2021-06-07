@@ -147,6 +147,11 @@ const Container = styled.div`
   grid-template-rows: 64px auto min-content;
   min-height: 0;
   background-color: ${(props) => props.currentTheme.backgroundColor};
+  @media (max-width: 768px) {
+    display: grid;
+    height: 100%;
+    align-content: start;
+  }
 `;
 const Header = styled.div`
   padding-left: 20px;

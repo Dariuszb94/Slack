@@ -82,6 +82,12 @@ export default Sidebar;
 
 const Container = styled.div`
   background-color: #3f0e40;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 8px;
+  }
 `;
 const FavTitle = styled.div`
   color: rgb(188, 171, 188);
@@ -113,6 +119,10 @@ const WorkspaceContainer = styled.div`
   padding-left: 19px;
   justify-content: space-between;
   border-bottom: 1px solid #532753;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 8px;
+  }
 `;
 const Name = styled.h1`
   font-size: 26px;
@@ -121,6 +131,9 @@ const Name = styled.h1`
 const ChannelsContainer = styled.div`
   color: rgb(188, 171, 188);
   margin-top: 10px;
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
 `;
 const NewChannelContainer = styled.div`
   display: flex;

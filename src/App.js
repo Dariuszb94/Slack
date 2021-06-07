@@ -103,4 +103,8 @@ const Main = styled.div`
   color: ${(props) => (props.themeHook[0] == "light" ? "black" : "white")};
   background-color: ${(props) =>
     props.themeHook[0] == "light" ? "white" : "#333333"};
+  @media (max-width: 768px) {
+    display:flex;
+    flex-direction: column;
+  }
 `;
